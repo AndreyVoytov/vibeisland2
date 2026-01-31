@@ -1,4 +1,4 @@
-const DEFAULT_IMAGE_EXTENSIONS = ['png', 'svg'];
+const DEFAULT_IMAGE_EXTENSIONS = ['svg', 'png'];
 
 const stripExtension = (source) => source.replace(/\.(png|svg)$/i, '');
 
