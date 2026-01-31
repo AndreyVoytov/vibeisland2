@@ -131,7 +131,7 @@ export const createIsland = ({
         if (!tiles.has(`${x},${y}`)) {
           const type = ensureCellType(x, y, tileType);
           const tile = createTileElement({ x, y, type, createImage });
-          tile.classList.add('island-tile--hidden');
+          tile.classList.add('island-tile--growing');
           tiles.set(`${x},${y}`, tile);
           newTiles.push({ tile, x, y });
         }
@@ -139,7 +139,7 @@ export const createIsland = ({
     }
 
     newTiles.forEach(({ tile, x, y }) => {
-      setTilePosition(tile, x, y, nextSize);
+      setTilePosition(tile, x, y, size);
       container.append(tile);
     });
 
@@ -164,7 +164,7 @@ export const createIsland = ({
     await new Promise((resolve) => {
       orderedNewTiles.forEach(({ tile }, index) => {
         const delay = Math.round(step * index);
-        setTimeout(() => tile.classList.remove('island-tile--hidden'), delay);
+        setTimeout(() => tile.classList.remove('island-tile--growing'), delay);
       });
       setTimeout(resolve, totalDuration);
     });
