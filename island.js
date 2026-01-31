@@ -51,7 +51,22 @@ export const createIsland = ({
 
   const tiles = new Map();
 
-  const getTileSize = () => baseTileSize * getScaleForLevel(level);
+  const getResponsiveScale = () => {
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const isPhone = Math.max(viewportWidth, viewportHeight) <= 900;
+    if (!isPhone) {
+      return 1;
+    }
+    const targetCells = 25;
+    const targetPixels = baseTileSize * targetCells;
+    const isPortrait = viewportHeight >= viewportWidth;
+    const availablePixels = isPortrait ? viewportWidth : viewportHeight;
+    return availablePixels / targetPixels;
+  };
+
+  const getTileSize = () =>
+    baseTileSize * getScaleForLevel(level) * getResponsiveScale();
 
   const setTilePosition = (tile, x, y) => {
     const tileSize = getTileSize();
@@ -156,6 +171,9 @@ export const createIsland = ({
     expand,
     getLevel: () => level,
     getSize: () => size,
-    refreshLayout: layoutTiles,
+    refreshLayout: () => {
+      syncContainerSize();
+      layoutTiles();
+    },
   };
 };
