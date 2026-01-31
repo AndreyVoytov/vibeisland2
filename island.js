@@ -66,7 +66,7 @@ export const createIsland = ({
   };
 
   const getTileSize = () =>
-    baseTileSize * getScaleForLevel(level) * getResponsiveScale();
+    Math.round(baseTileSize * getScaleForLevel(level) * getResponsiveScale());
 
   const setTilePosition = (tile, x, y) => {
     const tileSize = getTileSize();
