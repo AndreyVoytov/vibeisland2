@@ -53,7 +53,7 @@ export const createIsland = ({
 
   const tiles = new Map();
 
-  const getResponsiveScale = () => {
+  const getInitialResponsiveScale = () => {
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
     const isPhone = Math.max(viewportWidth, viewportHeight) <= 900;
@@ -67,8 +67,10 @@ export const createIsland = ({
     return availablePixels / targetPixels;
   };
 
+  const responsiveScale = getInitialResponsiveScale();
+
   const getTileSize = () =>
-    Math.round(baseTileSize * getScaleForLevel(level) * getResponsiveScale());
+    baseTileSize * getScaleForLevel(level) * responsiveScale;
 
   const setTilePosition = (tile, x, y, sizeValue = size) => {
     const tileSize = getTileSize();
