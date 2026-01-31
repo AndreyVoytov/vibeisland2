@@ -57,6 +57,7 @@ export const createIsland = ({
     const tileSize = getTileSize();
     tile.style.left = `${x * tileSize}px`;
     tile.style.top = `${y * tileSize}px`;
+    tile.style.zIndex = String(y);
   };
 
   const syncContainerSize = () => {
@@ -102,42 +103,46 @@ export const createIsland = ({
   const expand = async ({ sizeIncrease, tileType }) => {
     const nextSize = size + sizeIncrease;
     const nextLevel = level + 1;
-    const { min: oldMin, max: oldMax } = getRangeForSize(size);
     const { min: newMin, max: newMax } = getRangeForSize(nextSize);
     const newTiles = [];
 
     for (let y = newMin; y <= newMax; y += 1) {
       for (let x = newMin; x <= newMax; x += 1) {
-        const exists = x >= oldMin && x <= oldMax && y >= oldMin && y <= oldMax;
-        if (!exists) {
+        if (!tiles.has(`${x},${y}`)) {
           const type = ensureCellType(x, y, tileType);
           const tile = createTileElement({ x, y, type, createImage });
           tile.classList.add('island-tile--hidden');
           tiles.set(`${x},${y}`, tile);
-          newTiles.push(tile);
+          newTiles.push({ tile, x, y });
         }
       }
     }
+
+    newTiles.forEach(({ tile, x, y }) => {
+      setTilePosition(tile, x, y);
+      container.append(tile);
+    });
 
     size = nextSize;
     level = nextLevel;
     storage.setJSON(SIZE_KEY, size);
     storage.setJSON(LEVEL_KEY, level);
     syncContainerSize();
-
-    tiles.forEach((tile) => {
-      const x = Number(tile.dataset.x);
-      const y = Number(tile.dataset.y);
-      setTilePosition(tile, x, y);
-    });
-
-    newTiles.forEach((tile) => container.append(tile));
+    layoutTiles();
 
     const totalDuration = 3000;
-    const step = newTiles.length ? totalDuration / newTiles.length : 0;
+    const orderedNewTiles = [...newTiles].sort((a, b) => {
+      if (a.y === b.y) {
+        return a.x - b.x;
+      }
+      return a.y - b.y;
+    });
+    const step = orderedNewTiles.length
+      ? totalDuration / orderedNewTiles.length
+      : 0;
 
     await new Promise((resolve) => {
-      newTiles.forEach((tile, index) => {
+      orderedNewTiles.forEach(({ tile }, index) => {
         const delay = Math.round(step * index);
         setTimeout(() => tile.classList.remove('island-tile--hidden'), delay);
       });

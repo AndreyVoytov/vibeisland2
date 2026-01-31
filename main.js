@@ -3,7 +3,7 @@ import { createRenderer } from './render.js';
 import { createIsland } from './island.js';
 
 const MONEY_KEY = 'player:money';
-const BASE_MONEY = 10000;
+const BASE_MONEY = 100000;
 const UPGRADE_CONFIG_URL = './upgrades.json';
 
 const tileSources = {
@@ -27,6 +27,7 @@ const init = async () => {
   const upgradeTrigger = document.querySelector('#upgrade-trigger');
   const upgradePanel = document.querySelector('#upgrade-panel');
   const upgradeList = document.querySelector('#upgrade-list');
+  const upgradeClose = document.querySelector('#upgrade-close');
 
   const renderer = createRenderer({ doc: document });
   const createImage = (type) =>
@@ -62,7 +63,7 @@ const init = async () => {
       const button = document.createElement('button');
       button.className = 'upgrade-panel__button';
       button.type = 'button';
-      button.disabled = upgrade.level <= island.getLevel();
+      button.disabled = upgrade.level !== island.getLevel() + 1;
 
       const label = document.createElement('span');
       label.textContent = upgrade.label;
@@ -83,7 +84,7 @@ const init = async () => {
       button.append(left, price);
 
       button.addEventListener('click', async () => {
-        if (money < upgrade.cost || upgrade.level <= island.getLevel()) {
+        if (money < upgrade.cost || upgrade.level !== island.getLevel() + 1) {
           return;
         }
         updateMoney(money - upgrade.cost);
@@ -114,6 +115,10 @@ const init = async () => {
     if (event.target === upgradePanel) {
       closePanel();
     }
+  });
+
+  upgradeClose.addEventListener('click', () => {
+    closePanel();
   });
 
   updateMoney(money);
