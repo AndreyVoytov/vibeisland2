@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vibeisland 2</title>
+    <style>
+      :root {
+        color-scheme: only light;
+        font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: #1e7fd6;
+        color: #f5f8ff;
+        min-height: 100vh;
+      }
+
+      #app {
+        position: relative;
+        min-height: 100vh;
+        overflow: hidden;
+      }
+
+      .hud {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .money {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(0, 0, 0, 0.35);
+        padding: 10px 16px;
+        border-radius: 12px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      .upgrade-trigger {
+        position: absolute;
+        bottom: 26px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 14px 24px;
+        border-radius: 16px;
+        border: none;
+        background: #f2c94c;
+        color: #1a1a1a;
+        font-size: 18px;
+        font-weight: 700;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+        cursor: pointer;
+        pointer-events: auto;
+      }
+
+      .upgrade-panel {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.65);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        pointer-events: auto;
+      }
+
+      .upgrade-panel.is-visible {
+        display: flex;
+      }
+
+      .upgrade-panel__content {
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 20px;
+        padding: 24px;
+        width: min(420px, 100%);
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .upgrade-panel__button {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 18px;
+        font-size: 16px;
+        font-weight: 700;
+        border-radius: 14px;
+        border: none;
+        cursor: pointer;
+        background: #ffffff;
+        color: #1a1a1a;
+      }
+
+      .upgrade-panel__button[disabled] {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .upgrade-panel__icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #f2c94c;
+        font-size: 20px;
+        font-weight: 800;
+      }
+
+      .island-container {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 0;
+        height: 0;
+        --tile-size: 28px;
+      }
+
+      .island-tile {
+        position: absolute;
+        width: var(--tile-size);
+        height: var(--tile-size);
+        transition:
+          left 0.6s ease,
+          top 0.6s ease,
+          width 0.6s ease,
+          height 0.6s ease,
+          opacity 0.4s ease;
+        transform: translate(-50%, -50%);
+        opacity: 1;
+      }
+
+      .island-tile--hidden {
+        opacity: 0;
+      }
+
+      .island-tile__image {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="island-container" id="island"></div>
+      <div class="hud">
+        <div class="money" id="money">0</div>
+        <button class="upgrade-trigger" id="upgrade-trigger">Апгрейды</button>
+        <div class="upgrade-panel" id="upgrade-panel">
+          <div class="upgrade-panel__content" id="upgrade-list"></div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

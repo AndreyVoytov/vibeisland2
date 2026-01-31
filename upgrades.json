@@ -1,0 +1,72 @@
+[
+  {
+    "level": 1,
+    "label": "Расширение острова I",
+    "cost": 600,
+    "sizeIncrease": 2,
+    "tileType": "tile1"
+  },
+  {
+    "level": 2,
+    "label": "Расширение острова II",
+    "cost": 900,
+    "sizeIncrease": 2,
+    "tileType": "tile1"
+  },
+  {
+    "level": 3,
+    "label": "Расширение острова III",
+    "cost": 1300,
+    "sizeIncrease": 2,
+    "tileType": "tile1"
+  },
+  {
+    "level": 4,
+    "label": "Расширение острова IV",
+    "cost": 1800,
+    "sizeIncrease": 2,
+    "tileType": "tile1"
+  },
+  {
+    "level": 5,
+    "label": "Расширение острова V",
+    "cost": 2400,
+    "sizeIncrease": 2,
+    "tileType": "tile2"
+  },
+  {
+    "level": 6,
+    "label": "Расширение острова VI",
+    "cost": 3100,
+    "sizeIncrease": 2,
+    "tileType": "tile2"
+  },
+  {
+    "level": 7,
+    "label": "Расширение острова VII",
+    "cost": 3900,
+    "sizeIncrease": 2,
+    "tileType": "tile2"
+  },
+  {
+    "level": 8,
+    "label": "Расширение острова VIII",
+    "cost": 4800,
+    "sizeIncrease": 2,
+    "tileType": "tile2"
+  },
+  {
+    "level": 9,
+    "label": "Расширение острова IX",
+    "cost": 5800,
+    "sizeIncrease": 2,
+    "tileType": "tile2"
+  },
+  {
+    "level": 10,
+    "label": "Расширение острова X",
+    "cost": 6900,
+    "sizeIncrease": 2,
+    "tileType": "tile2"
+  }
+]
