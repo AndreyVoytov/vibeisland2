@@ -35,7 +35,7 @@ const createTileElement = ({ x, y, type, createImage }) => {
 
   const img = createImage(type);
   img.classList.add('island-tile__image');
-  img.loading = 'lazy';
+  img.loading = 'eager';
   tile.append(img);
   return tile;
 };
