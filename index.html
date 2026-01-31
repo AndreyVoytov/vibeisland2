@@ -76,6 +76,13 @@
         display: flex;
       }
 
+      .upgrade-panel__inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+      }
+
       .upgrade-panel__content {
         background: rgba(0, 0, 0, 0.6);
         border-radius: 20px;
@@ -119,6 +126,19 @@
         font-weight: 800;
       }
 
+      .upgrade-panel__close {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.95);
+        color: #1a1a1a;
+        font-size: 22px;
+        font-weight: 700;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+      }
+
       .island-container {
         position: absolute;
         left: 50%;
@@ -160,7 +180,17 @@
         <div class="money" id="money">0</div>
         <button class="upgrade-trigger" id="upgrade-trigger">Апгрейды</button>
         <div class="upgrade-panel" id="upgrade-panel">
-          <div class="upgrade-panel__content" id="upgrade-list"></div>
+          <div class="upgrade-panel__inner">
+            <div class="upgrade-panel__content" id="upgrade-list"></div>
+            <button
+              class="upgrade-panel__close"
+              id="upgrade-close"
+              type="button"
+              aria-label="Закрыть панель апгрейдов"
+            >
+              ✕
+            </button>
+          </div>
         </div>
       </div>
     </div>
