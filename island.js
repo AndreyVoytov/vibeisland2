@@ -24,6 +24,8 @@ const createCoordList = (size) => {
   return coords;
 };
 
+const getCenterOffset = (size) => (size % 2 === 0 ? 0.5 : 0);
+
 const createTileElement = ({ x, y, type, createImage }) => {
   const tile = document.createElement('div');
   tile.className = 'island-tile';
@@ -68,10 +70,11 @@ export const createIsland = ({
   const getTileSize = () =>
     Math.round(baseTileSize * getScaleForLevel(level) * getResponsiveScale());
 
-  const setTilePosition = (tile, x, y) => {
+  const setTilePosition = (tile, x, y, sizeValue = size) => {
     const tileSize = getTileSize();
-    tile.style.left = `${x * tileSize}px`;
-    tile.style.top = `${y * tileSize}px`;
+    const offset = getCenterOffset(sizeValue);
+    tile.style.left = `${(x + offset) * tileSize}px`;
+    tile.style.top = `${(y + offset) * tileSize}px`;
     tile.style.zIndex = String(y);
   };
 
@@ -134,7 +137,7 @@ export const createIsland = ({
     }
 
     newTiles.forEach(({ tile, x, y }) => {
-      setTilePosition(tile, x, y);
+      setTilePosition(tile, x, y, nextSize);
       container.append(tile);
     });
 
