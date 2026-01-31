@@ -150,6 +150,7 @@
         width: 0;
         height: 0;
         --tile-size: 28px;
+        --island-transition: 3000ms;
         z-index: 1;
       }
 
@@ -158,10 +159,10 @@
         width: var(--tile-size);
         height: var(--tile-size);
         transition:
-          left 0.6s ease,
-          top 0.6s ease,
-          width 0.6s ease,
-          height 0.6s ease,
+          left var(--island-transition) ease,
+          top var(--island-transition) ease,
+          width var(--island-transition) ease,
+          height var(--island-transition) ease,
           opacity 0.4s ease;
         transform: translate(-50%, -50%);
         opacity: 1;
